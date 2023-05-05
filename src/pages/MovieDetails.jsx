@@ -1,28 +1,37 @@
 import { useEffect, useState, useRef } from "react";
 import { Outlet, NavLink, useParams, useLocation } from "react-router-dom";
+import { fetchСonfiguration, fetchMovieDetails } from 'Api'
 
 const MovieDetails = () => {
     const {movieId} = useParams();
     const [movie, setMovie] = useState();
-    const [configuration, setConfiguration] = useState({});
     const { state } = useLocation();
+    const baseUrl = useRef()
+    const imageSize = useRef()
     const {current} = useRef(state?.form ?? '/movies');
 
 
     useEffect(()=>{
-        fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=053b6502bd056126a1f9a95166dc9ace&language=en-US`)
-        .then(response => response.json())
-        .then(response => setMovie(response))
-        
-        fetch('https://api.themoviedb.org/3/configuration?api_key=053b6502bd056126a1f9a95166dc9ace')
-        .then(response => response.json())
-        .then(({images}) => {setConfiguration({base_url: images.base_url, size: images.poster_sizes[3]});})
+        fetchMovieDetails(movieId)
+        .then(({title, release_date, poster_path, overview, genres}) => 
+            setMovie({title, release_date, poster_path, overview, genres})
+        );
+
+        fetchСonfiguration()
+        .then(({backdrop_sizes, base_url}) => {
+            baseUrl.current = base_url; 
+            imageSize.current = backdrop_sizes[0];
+        });
     }, [movieId])
+
+    console.log(baseUrl.current);
+    console.log(imageSize.current);
+
     return(
         <div>
             <NavLink to={current}>Go back</NavLink>
             <h1>{movie?.title} ({movie?.release_date.slice(0, 4)})</h1>
-            <img src={`${configuration.base_url}${configuration.size}${movie?.poster_path}`} alt={movie?.title} />
+            <img src={`${baseUrl.current}${imageSize.current}${movie?.poster_path}`} alt={movie?.title} />
             {/* <p>User Score: {movie.userScore}</p> */}
             <h2>Overview</h2>
             <p>{movie?.overview}</p>

@@ -1,0 +1,1 @@
+export { fetchHome, fetchMovies, fetchСonfiguration, fetchMovieDetails, fetchCredits, fetchReviews } from './Api'
