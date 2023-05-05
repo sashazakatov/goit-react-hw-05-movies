@@ -10,9 +10,6 @@ const Reviews = () => {
         fetchReviews(movieId)
         .then(results => setResults(results));
 
-            // fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=053b6502bd056126a1f9a95166dc9ace&language=en-US&page=1`)
-            // .then(response => response.json())
-            // .then(response => setResults(response.results)); 
     }, [movieId])
 
     return(

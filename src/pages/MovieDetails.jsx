@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { Outlet, NavLink, useParams, useLocation } from "react-router-dom";
-import { fetchСonfiguration, fetchMovieDetails } from 'Api'
+import { fetchСonfiguration, fetchMovieDetails } from 'Api';
+import { sizeImages } from 'options/sizeImage';
 
 const MovieDetails = () => {
     const {movieId} = useParams();
     const [movie, setMovie] = useState();
     const { state } = useLocation();
-    const baseUrl = useRef()
-    const imageSize = useRef()
+    const baseUrl = useRef();
+    const imageSize = useRef();
     const {current} = useRef(state?.form ?? '/movies');
 
 
@@ -20,7 +21,7 @@ const MovieDetails = () => {
         fetchСonfiguration()
         .then(({backdrop_sizes, base_url}) => {
             baseUrl.current = base_url; 
-            imageSize.current = backdrop_sizes[0];
+            imageSize.current = backdrop_sizes[sizeImages.SMALLEST];
         });
     }, [movieId])
 
