@@ -25,9 +25,6 @@ const MovieDetails = () => {
         });
     }, [movieId])
 
-    console.log(baseUrl.current);
-    console.log(imageSize.current);
-
     return(
         <div>
             <NavLink to={current}>Go back</NavLink>
