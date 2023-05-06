@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const Form = ({onSubmit, q}) =>{
     const [query, setQuery] = useState(q);
@@ -18,5 +19,9 @@ const Form = ({onSubmit, q}) =>{
             <button type="submit">Search</button>
         </form>
     )
+}
+Form.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    q: PropTypes.string.isRequired,
 }
 export default Form;
