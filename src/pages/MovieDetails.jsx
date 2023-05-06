@@ -28,15 +28,6 @@ const MovieDetails = () => {
     return(
         <section>
             <NavLink to={backLink}>Go back</NavLink>
-            {/* <h1>{movie?.title} ({movie?.release_date.slice(0, 4)})</h1>
-            <img src={`${baseUrl.current}${imageSize.current}${movie?.poster_path}`} alt={movie?.title} />
-            {/* <p>User Score: {movie.userScore}</p> */}
-            {/* <h2>Overview</h2>
-            <p>{movie?.overview}</p>
-            <h2>Genres</h2>
-            <ul>
-                {movie?.genres.map(({id, name}) => <li key={id}>{name}</li>)}
-            </ul> */}
             <Movie movie={movie} imagePath={`${baseUrl.current}${imageSize.current}`}/>
             <p>Additional infoemation</p>
             <NavLink to='cast'>Cast</NavLink>
