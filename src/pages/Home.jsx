@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation} from "react-router-dom";
 import { fetchHome } from 'Api'
+import MovieList from "components/MovieList";
 
 const Home = () => {
     const [trendingFilms, setTrendingFilms] = useState([]);
-    const location = useLocation()
     useEffect(()=>{
         fetchHome()
         .then((results) => setTrendingFilms(results))
         .catch();
     }, [])
     return(
-        <div>
+        <section>
             <h2>Trending today</h2>
-            <ul>
-                {trendingFilms.map(({id, title})=><li key={`${id}`}><NavLink to={`movies/${id}`} state={{form: location}}>{title}</NavLink></li>)}
-            </ul>
-        </div>
+            <MovieList movies={trendingFilms}/>
+        </section>
     )
 }
 export default Home;

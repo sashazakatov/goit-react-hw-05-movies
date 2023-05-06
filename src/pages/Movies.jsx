@@ -1,32 +1,31 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { fetchMovies } from 'Api'
+import MovieList from 'components/MovieList'
+import Form from "components/Form";
 
 const Movies = () => {
-    const [query, setQuery] = useState('');
-    const [movies, setMovies] = useState([]);
+    const [ movies, setMovies ] = useState([]);
+    const [ searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get('query') ?? '';
 
-    const HandelSubmit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        if(query === ''){
+            return setSearchParams({});
+        }
+
         fetchMovies(query)
         .then((results)=> setMovies(results))
-        setQuery('');
+    }, [query, setSearchParams])
+
+    const handelSubmit = (q = '') => {
+        setSearchParams({query: q});
     }
     
     return(
         <>
-        <form onSubmit={HandelSubmit}>
-            <input 
-                type="text"
-                value={query}
-                onChange={e=>setQuery(e.target.value)}
-            />
-            <button type="submit">Search</button>
-        </form>
-        <ul>
-            {/* {Компонент} */}
-           {movies.map(({id, title}) => <li key={id}><NavLink to={`${id}`}>{title}</NavLink></li>)}
-        </ul>
+            <Form onSubmit={handelSubmit} q={query}/>
+            <MovieList movies={movies}/>
         </>
     )
 }
