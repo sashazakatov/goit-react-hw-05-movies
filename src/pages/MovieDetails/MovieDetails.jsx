@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, Suspense } from "react";
-import { Outlet, NavLink, useParams, useLocation } from "react-router-dom";
+import { Outlet, useParams, useLocation } from "react-router-dom";
 import { fetchСonfiguration, fetchMovieDetails } from 'Api';
 import { sizeImages } from 'options/sizeImage';
 import Loader from "components/Loader";
