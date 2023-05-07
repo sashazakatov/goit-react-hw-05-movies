@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchReviews } from 'Api';
 
+import { Item } from "./Reviews.styled";
+
 const Reviews = () => {
     const {movieId} = useParams();
     const [results, setResults] = useState([]);
@@ -14,10 +16,10 @@ const Reviews = () => {
 
     return(
         <ul>
-            {results.map(({id, author, content}) => <li key={id}>
+            {results.map(({id, author, content}) => <Item key={id}>
                 <p>Author: {author}</p>
                 <p>{content}</p>
-            </li>)}
+            </Item>)}
         </ul>
     )
 }

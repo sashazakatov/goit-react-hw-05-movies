@@ -3,6 +3,8 @@ import { fetchHome } from 'Api'
 import MovieList from "components/MovieList";
 import Loader from "components/Loader";
 
+import { Title } from './Home.styled'
+
 const Home = () => {
     const [trendingFilms, setTrendingFilms] = useState([]);
     const [ loader, setLeader ] = useState(false);
@@ -14,11 +16,11 @@ const Home = () => {
         .finally(() => setLeader(false));
     }, [])
     return(
-        <section>
-            <h2>Trending today</h2>
+        <>
+            <Title>Trending today</Title>
             { loader && <Loader/> }
             { !loader && <MovieList movies={trendingFilms} />}
-        </section>
+        </>
     )
 }
 export default Home;

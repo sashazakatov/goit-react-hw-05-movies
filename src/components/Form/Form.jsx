@@ -1,6 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
+import { FormButton, Forminput} from './Form.styled'
+
 const Form = ({onSubmit, q}) =>{
     const [query, setQuery] = useState(q);
 
@@ -11,12 +13,12 @@ const Form = ({onSubmit, q}) =>{
 
     return(
         <form onSubmit={handelSubmit}>
-            <input 
+            <Forminput 
                 type="text"
                 value={query}
                 onChange={e=>setQuery(e.target.value)}
             />
-            <button type="submit">Search</button>
+            <FormButton type="submit">Search</FormButton>
         </form>
     )
 }
