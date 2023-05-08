@@ -12,7 +12,7 @@ const MovieDetails = () => {
     const baseUrl = useRef(null);
     const imageSize = useRef(null);
     const location = useLocation();
-    const backLink = location.state?.from ?? '/'; 
+    const locationRef = useRef(location.state?.from ?? '/');
 
     useEffect(()=>{
         fetchСonfiguration()
@@ -31,7 +31,7 @@ const MovieDetails = () => {
         <div>
             {!movie && <Loader/>}
             {movie &&  <>
-                <BackLink to={backLink}>Go back</BackLink>
+                <BackLink to={locationRef.current}>Go back</BackLink>
                 <InformationMovie>
                 <Div>
                     <Title>{movie.title} ({movie.release_date.slice(0, 4)})</Title>
@@ -50,8 +50,8 @@ const MovieDetails = () => {
                 <Span>
                     <h2>Additional infoemation</h2>
                     <span>
-                        <Links to='cast'>Cast</Links>
-                        <Links to='reviews'>Reviews</Links>
+                        <Links to='cast' state={{form: locationRef.current}}>Cast</Links>
+                        <Links to='reviews' state={{form: locationRef.current}}>Reviews</Links>
                     </span>
                 </Span>
                     <Suspense fallback={<Loader/>}>
